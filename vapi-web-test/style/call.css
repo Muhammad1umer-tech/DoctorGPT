@@ -1,0 +1,122 @@
+/* style/call.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom, #0072ff, #000); 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#callContainer {
+    width: 100%;
+    max-width: 375px;
+    height: 100%;
+    max-height: 812px;
+    background: #1c2733;
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 20px 40px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+}
+
+#statusBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: white;
+    font-size: 14px;
+}
+
+#statusBar .icons {
+    display: flex;
+    gap: 5px;
+}
+
+#callerInfo {
+    text-align: center;
+    margin-top: 60px;
+}
+
+#callerAvatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #4a5a6a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+#callerName {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#callStatus {
+    font-size: 16px;
+    color: #8e8e93;
+}
+
+#buttonContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 300px;
+    margin-top: auto;
+}
+
+.callButton {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #4cd964; /* Default button background color */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.callButton:hover {
+    transform: scale(1.1);
+    background-color: #45c555; /* Darker background color on hover */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#stopButton {
+    background-color: #ff3b30; /* Red color for cancel button */
+}
+
+.callButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttonIcon {
+    font-size: 32px;
+}

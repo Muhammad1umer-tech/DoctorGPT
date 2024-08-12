@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Call Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="/style/call.css">
+</head>
+<body>
+    <div id="callContainer">
+        <div id="statusBar">
+            <span id="currentTime" class="time"></span>
+            <div class="icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>    
+        <div id="callerInfo">
+            <div id="callerAvatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 id="callerName">AI Assistant</h1>
+            <p id="callStatus">Call ended</p>
+        </div>
+        <div id="buttonContainer">
+            <button id="startButton" class="callButton">
+                <i class="fas fa-phone-alt buttonIcon"></i>
+            </button>
+            <button id="stopButton" class="callButton">
+                <i class="fas fa-phone-slash buttonIcon"></i>
+            </button>
+        </div>
+    </div>
+    <audio id="outgoingCallSound" loop>
+        <source src="resource/outgoing_call.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <!-- <script type="module" src="https://cdn.jsdelivr.net/npm/@vapi-ai/web@1.0.0/dist/vapi.min.js"></script> -->
+    <script src="/app.js" type="module"></script>
+    <!-- <script src="dist/bundle.js" type="module"></script> -->
+
+    <script>
+        // Get personaId from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const personaId = urlParams.get('personaId');
+        document.getElementById('callerName').innerText = `AI Assistant ${personaId}`;
+
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            
+            // Convert to 12-hour format
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            
+            // Add leading zeros if needed
+            hours = hours.toString().padStart(2, '0');
+            minutes = minutes.toString().padStart(2, '0');
+            
+            const timeString = `${hours}:${minutes} ${ampm}`;
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // Update time immediately and then every second
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
