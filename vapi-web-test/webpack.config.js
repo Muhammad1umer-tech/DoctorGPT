@@ -10,6 +10,8 @@ module.exports = {
   },
   mode: "development",
   devServer: {
+   
+    allowedHosts: 'all',
     static: {
       directory: path.join(__dirname, "/"), // Serve from the root
     },
