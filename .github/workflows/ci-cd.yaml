@@ -33,7 +33,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker images
-        run: docker compose --build
+        run: docker compose up --build
       
       - name: Tagging
         run: |
