@@ -50,7 +50,7 @@ jobs:
       - name: Deploy to Remote Server via SSH
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: 192.168.2.17
+          host: 192.168.2.30
           username: umer
           password: umer123
           port: 22
