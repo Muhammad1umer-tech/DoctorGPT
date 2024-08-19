@@ -9,10 +9,9 @@ COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN npm install
-RUN npm install axios
 
 # Copy the rest of the application code to the working directory
-COPY . ./
+COPY . .
 
 # Build the application
 RUN npm run build
@@ -25,4 +24,4 @@ EXPOSE 9000
 
 # Command to run the application
 # CMD ["serve", "-s", "dist", "-l", "5000"]
-CMD ["npm","run","dev"]
+CMD ["npm","run","start"]

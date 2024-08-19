@@ -1,2 +1,5 @@
 
-/venv
+/Backend/venv
+
+/vapi-web-test/node_modules/
+

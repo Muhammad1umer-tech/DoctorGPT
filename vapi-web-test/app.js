@@ -93,13 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
       updateButtonState(true);
       playOutgoingCallSound();
 
-      axios.get('http://localhost:8000/free-slots')
+      axios.post('https://15fb-203-128-11-19.ngrok-free.app/free-slots')
       .then(res=>{
         console.log(res, "free slots axios called")
-        const options = {method: 'GET', headers: {Authorization: 'Bearer a19109bb-65bd-45b0-b5f2-94a26d5f2956'}};
-        axios('https://api.vapi.ai/assistant/36720a00-0b59-406b-a814-bf3437e0f985', options)
-          .then(response => console.log((response['data']['model']['messages'][0]['content'])))
-          .catch(err => console.error(err));
+        // const options = {method: 'GET', headers: {Authorization: 'Bearer a19109bb-65bd-45b0-b5f2-94a26d5f2956'}};
+        // axios('https://api.vapi.ai/assistant/36720a00-0b59-406b-a814-bf3437e0f985', options)
+        //   .then(response => console.log((response['data']['model']['messages'][0]['content'])))
+        //   .catch(err => console.error(err));
       })
       .catch(error=>{
         console.log("free-slots error", error)
@@ -114,6 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const response = await vapi.start(`36720a00-0b59-406b-a814-bf3437e0f985`); // Replace with your actual Assistant ID
         call_id = response['id']
+
+
+        axios.post("http://localhost:8000/save-call-id", {call_id: call_id})
+        .then(res=>{
+          console.log(res.data)
+        })
 
       } catch (error) {
         handleError(
@@ -142,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isCalling = false;
         stopOutgoingCallSound();
 
-        axios.post("http://localhost:8000/transcript", {call_id: call_id})
+        axios.post("https://15fb-203-128-11-19.ngrok-free.app/transcript", {call_id: call_id})
         .then(res=>{
           console.log("transcript:", res.data)
         })

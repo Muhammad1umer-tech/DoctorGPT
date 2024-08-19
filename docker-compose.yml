@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: ./Backend
+    ports:
+      - "8000:8000"
+
+  react:
+    build:
+      context: ./vapi-web-test
+    ports:
+      - "9000:9000"
