@@ -42,7 +42,7 @@ jobs:
           docker tag backend-django:latest 192.168.2.30:6000/remote-vapi-umer-backend:latest
           docker tag backend-react:latest 192.168.2.30:6000/remote-vapi-umer-frontend:latest
 
-        name: Push
+      - name: Push
         run: |
           docker push 192.168.2.30:6000/remote-vapi-umer-backend:latest
           docker push 192.168.2.30:6000/remote-vapi-umer-frontend:latest
