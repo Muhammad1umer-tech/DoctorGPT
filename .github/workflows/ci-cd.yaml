@@ -61,4 +61,5 @@ jobs:
             docker pull 192.168.2.17:6000/backend-django:latest
             docker pull 192.168.2.17:6000/backend-react:latest
             docker-compose up 
-    
+     
+     
