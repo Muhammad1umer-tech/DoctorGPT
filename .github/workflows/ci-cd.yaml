@@ -53,7 +53,6 @@ jobs:
           host: 192.168.2.30
           username: umer
           password: umer123
-          port: 22
           script: |
             docker push 192.168.2.30:6000/remote-vapi-umer-backend:latest
             docker push 192.168.2.30:6000/remote-vapi-umer-frontend:latest
