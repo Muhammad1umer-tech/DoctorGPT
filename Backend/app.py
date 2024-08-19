@@ -182,7 +182,7 @@ async def book_apointment(request: Request):
         end_datetime = datetime.datetime.strptime(output_dict['End date and time'], date_format)
 
     except ValueError:
-        date_format = '%A, %d %B, %Y, %I:%M%p'
+        date_format = '%d %B %Y, %I:%M %p'
         start_datetime = datetime.datetime.strptime(output_dict['Start date and time'], date_format)
         end_datetime = datetime.datetime.strptime(output_dict['End date and time'], date_format)
 

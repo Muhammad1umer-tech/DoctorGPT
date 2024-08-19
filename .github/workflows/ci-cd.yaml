@@ -31,9 +31,19 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        
-      - name: Build 
-        run: docker compose up --build
+      
+      - name: Tagging
+        run: |
+          docker tag backend-django:latest 192.168.2.17:6000/remote-vapi-umer-backend:latest
+          docker tag backend-react:latest 192.168.2.17:6000/remote-vapi-umer-frontend:latest
+
+      - name: Push
+        run: |
+          docker push 192.168.2.17:6000/remote-vapi-umer-backend:latest
+          docker push 192.168.2.17:6000/remote-vapi-umer-frontend:latest
+
+      name: Log in to Docker registry
+        run: echo "waqas123" | docker login 192.168.2.17:6000 -u $waqas --password-stdin
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,7 +58,7 @@ jobs:
           password: waqas123
           port: 22
           script: |
-            cd /path/to/your/project/on/remote/server
-            docker-compose pull   # Pull the latest images
-            docker-compose up -d  # Recreate and start containers in detached mode
+            docker pull 192.168.2.17:6000/backend-django:latest
+            docker pull 192.168.2.17:6000/backend-react:latest
+            docker-compose up 
     

@@ -26,7 +26,7 @@ import axios from 'axios';
 })();
 
 
-const vapi = new Vapi("5bf369be-b4bd-4ded-a525-4e061490ed94"); 
+const vapi = new Vapi("091e4b78-977e-440a-b8e5-14ca3d1f7505"); 
 
 let callStartTime;
 let timerInterval;
@@ -93,17 +93,17 @@ document.addEventListener("DOMContentLoaded", () => {
       updateButtonState(true);
       playOutgoingCallSound();
 
-      axios.post('https://15fb-203-128-11-19.ngrok-free.app/free-slots')
-      .then(res=>{
-        console.log(res, "free slots axios called")
-        // const options = {method: 'GET', headers: {Authorization: 'Bearer a19109bb-65bd-45b0-b5f2-94a26d5f2956'}};
-        // axios('https://api.vapi.ai/assistant/36720a00-0b59-406b-a814-bf3437e0f985', options)
-        //   .then(response => console.log((response['data']['model']['messages'][0]['content'])))
-        //   .catch(err => console.error(err));
-      })
-      .catch(error=>{
-        console.log("free-slots error", error)
-      })
+      // axios.post('https://15fb-203-128-11-19.ngrok-free.app/free-slots')
+      // .then(res=>{
+      //   console.log(res, "free slots axios called")
+      //   // const options = {method: 'GET', headers: {Authorization: 'Bearer a19109bb-65bd-45b0-b5f2-94a26d5f2956'}};
+      //   // axios('https://api.vapi.ai/assistant/36720a00-0b59-406b-a814-bf3437e0f985', options)
+      //   //   .then(response => console.log((response['data']['model']['messages'][0]['content'])))
+      //   //   .catch(err => console.error(err));
+      // })
+      // .catch(error=>{
+      //   console.log("free-slots error", error)
+      // })
       
 
       // Get personaId from URL
@@ -112,25 +112,21 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         //await vapi.start(`e2eeb87f-661e-4dce-bd57-4068d8a90ca2-${personaId}`); // Replace with your actual Assistant ID
 
-        const response = await vapi.start(`36720a00-0b59-406b-a814-bf3437e0f985`); // Replace with your actual Assistant ID
+        const response = await vapi.start(`98d0d135-81cc-47ed-86f5-3e9cbb43e157`); // Replace with your actual Assistant ID
         call_id = response['id']
 
-
-        axios.post("http://localhost:8000/save-call-id", {call_id: call_id})
-        .then(res=>{
-          console.log(res.data)
-        })
-
+        updateButtonState(false);
+        isCalling = false;
+        updateCallStatus("Call failed");
+        stopOutgoingCallSound();
+      
       } catch (error) {
         handleError(
           `Error starting call: ${
             error.message || "An unknown error occurred."
           }`
         );
-        updateButtonState(false);
-        isCalling = false;
-        updateCallStatus("Call failed");
-        stopOutgoingCallSound();
+       
       }
     });
   }
@@ -148,13 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
         isCalling = false;
         stopOutgoingCallSound();
 
-        axios.post("https://15fb-203-128-11-19.ngrok-free.app/transcript", {call_id: call_id})
-        .then(res=>{
-          console.log("transcript:", res.data)
-        })
-        .catch(error => {
-          console.log("transcript error", error)
-        })
+        // axios.post("https://15fb-203-128-11-19.ngrok-free.app/transcript", {call_id: call_id})
+        // .then(res=>{
+        //   console.log("transcript:", res.data)
+        // })
+        // .catch(error => {
+        //   console.log("transcript error", error)
+        // })
 
         // axios.get(`https://api.vapi.ai/call/${call_id}`, {
         //   headers: {
