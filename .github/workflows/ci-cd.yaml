@@ -60,3 +60,5 @@ jobs:
             docker pull 192.168.2.30:6000/remote-vapi-umer-frontend:latest
             docker-compose up
 
+            
+
