@@ -1,5 +1,4 @@
 name: CI/CD Pipeline
-
 on:
   push:
     branches:
@@ -41,6 +40,10 @@ jobs:
         run: |
           docker tag backend-django:latest 192.168.2.30:6000/remote-vapi-umer-backend:latest
           docker tag backend-react:latest 192.168.2.30:6000/remote-vapi-umer-frontend:latest
+
+        
+      - name: Log in to Docker registry
+        run: echo "umer123" | docker login 192.168.2.30:6000 -u umer --password-stdin
 
       - name: Push
         run: |
