@@ -42,11 +42,6 @@ jobs:
           docker tag backend-django:latest 192.168.2.17:6000/remote-vapi-umer-backend:latest
           docker tag backend-react:latest 192.168.2.17:6000/remote-vapi-umer-frontend:latest
 
-      - name: Push
-        run: |
-          docker push 192.168.2.17:6000/remote-vapi-umer-backend:latest
-          docker push 192.168.2.17:6000/remote-vapi-umer-frontend:latest
-
   deploy:
     runs-on: ubuntu-latest
     needs: docker
@@ -60,7 +55,10 @@ jobs:
           password: umer123
           port: 22
           script: |
-            docker pull 192.168.2.17:6000/remote-vapi-umer-backend:latest
-            docker pull 192.168.2.17:6000/remote-vapi-umer-frontend:latest
-            docker-compose up
+            docker push 192.168.2.17:6000/remote-vapi-umer-backend:latest
+            docker push 192.168.2.17:6000/remote-vapi-umer-frontend:latest
+          # script: |
+          #   docker pull 192.168.2.17:6000/remote-vapi-umer-backend:latest
+          #   docker pull 192.168.2.17:6000/remote-vapi-umer-frontend:latest
+          #   docker-compose up
 
