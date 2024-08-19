@@ -32,9 +32,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       
-      - name: Log in to Docker registry
-        run: echo "waqas123" | docker login 192.168.2.17:6000 -u waqas --password-stdin
-
       - name: Tagging
         run: |
           docker tag backend-django:latest 192.168.2.17:6000/remote-vapi-umer-backend:latest
@@ -54,8 +51,8 @@ jobs:
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: 192.168.2.17
-          username: waqas
-          password: waqas123
+          username: umer
+          password: umer123
           port: 22
           script: |
             docker pull 192.168.2.17:6000/remote-vapi-umer-backend:latest
