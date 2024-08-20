@@ -112,8 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         //await vapi.start(`e2eeb87f-661e-4dce-bd57-4068d8a90ca2-${personaId}`); // Replace with your actual Assistant ID
 
-        const response = await vapi.start(`98d0d135-81cc-47ed-86f5-3e9cbb43e157`); // Replace with your actual Assistant ID
-        call_id = response['id']
+        await vapi.start(`98d0d135-81cc-47ed-86f5-3e9cbb43e157`); // Replace with your actual Assistant ID
 
         updateButtonState(false);
         isCalling = false;
