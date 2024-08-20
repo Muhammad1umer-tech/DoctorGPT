@@ -43,7 +43,7 @@ jobs:
 
         
       - name: Log in to Docker registry
-        run: echo "umer123" | docker login 203.128.11.19::6000 -u umer --password-stdin
+        run: echo "umer123" | docker login 203.128.11.19:6000 -u umer --password-stdin
 
       - name: Push
         run: |
