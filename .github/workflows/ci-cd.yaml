@@ -38,8 +38,8 @@ jobs:
       
       - name: Tagging
         run: |
-          docker tag backend-django:latest 203.128.11.19::6000/remote-vapi-umer-backend:latest
-          docker tag backend-react:latest 203.128.11.19::6000/remote-vapi-umer-frontend:latest
+          docker tag backend-django:latest 203.128.11.19:6000/remote-vapi-umer-backend:latest
+          docker tag backend-react:latest 203.128.11.19:6000/remote-vapi-umer-frontend:latest
 
         
       - name: Log in to Docker registry
@@ -47,7 +47,7 @@ jobs:
 
       - name: Push
         run: |
-          docker push 203.128.11.19::6000/remote-vapi-umer-backend:latest
+          docker push 203.128.11.19:6000/remote-vapi-umer-backend:latest
           docker push 203.128.11.19:6000/remote-vapi-umer-frontend:latest
 
   deploy:
