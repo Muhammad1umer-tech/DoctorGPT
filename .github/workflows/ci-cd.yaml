@@ -1,44 +1,39 @@
 name: CI/CD Pipeline
+
 on:
   push:
     branches:
-      - main  # Run on pushes to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Run on pull requests to the main branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'  # Adjust the Python version as needed
+          python-version: '3.11'
 
   docker:
     runs-on: ubuntu-latest
     needs: build
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        with:
-          buildkitd-flags: |
-            --allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host
-          buildkitd-config-inline: |
-            [registry."203.128.11.19:6000"]
-              http = true
-              insecure = true
-           
-
+      
+      - name: Configure Docker for insecure registry
+        run: |
+          echo '{"insecure-registries" : ["203.128.11.19:6000"]}' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+      
       - name: Build Docker images
         run: |
           docker build -t backend-django:latest ./Backend
@@ -48,11 +43,10 @@ jobs:
         run: |
           docker tag backend-django:latest 203.128.11.19:6000/remote-vapi-umer-backend:latest
           docker tag backend-react:latest 203.128.11.19:6000/remote-vapi-umer-frontend:latest
-
-        
+      
       - name: Log in to Docker registry
         run: echo "umer123" | docker login 203.128.11.19:6000 -u umer --password-stdin
-
+      
       - name: Push
         run: |
           docker push 203.128.11.19:6000/remote-vapi-umer-backend:latest
@@ -61,7 +55,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: docker
-
     steps:
       - name: Deploy to Remote Server via SSH
         uses: appleboy/ssh-action@v0.1.8
@@ -72,9 +65,3 @@ jobs:
           script: |
             docker pull 203.128.11.19:6000/remote-vapi-umer-backend:latest
             docker pull 203.128.11.19:6000/remote-vapi-umer-frontend:latest
-
-            
-
-  
-
-  
