@@ -29,6 +29,7 @@ def get_free_slots(service, calendar_id='primary'):
     free_slots = []
 
     for day_offset in range(3):
+        
         day_start = (now + datetime.timedelta(days=day_offset)).replace(hour=9, minute=0, second=0, microsecond=0)
         day_end = (now + datetime.timedelta(days=day_offset)).replace(hour=17, minute=0, second=0, microsecond=0)
         
