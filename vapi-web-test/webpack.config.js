@@ -2,6 +2,12 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  resolve: {
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+      path.resolve(__dirname, 'custom_modules'), // Add custom module paths here
+    ],
+  },
   entry: "./app.js",
   output: {
     filename: "bundle.js",
@@ -53,3 +59,6 @@ module.exports = {
     ],
   },
 };
+
+
+

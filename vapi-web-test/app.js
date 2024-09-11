@@ -1,5 +1,4 @@
-import Vapi from "@vapi-ai/web";
-import axios from 'axios';
+import Vapi from "./node_modules/@vapi-ai/web"; 
 
 (function () {
   const NativeWebSocket = window.WebSocket;
@@ -116,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateButtonState(false);
         isCalling = false;
-        updateCallStatus("Call failed");
         stopOutgoingCallSound();
       
       } catch (error) {
