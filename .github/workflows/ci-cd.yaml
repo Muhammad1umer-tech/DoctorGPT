@@ -65,3 +65,4 @@ jobs:
           script: |
             docker pull 116.58.60.115:6000/remote-vapi-umer-backend:latest
             docker pull 116.58.60.115:6000/remote-vapi-umer-frontend:latest
+            docker-compose -f /mnt/myhdd/production/doctorgpt/docker-compose.yml up -d
