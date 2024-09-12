@@ -1,5 +1,9 @@
 
 /Backend/myenv
 
+/Backend/.venv/
+
 /vapi-web-test/node_modules/
+
+Backend/__pycache__/* 
 
