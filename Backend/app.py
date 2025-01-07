@@ -103,6 +103,21 @@ def authenticate_google_account(SCOPES):
             token.write(creds.to_json())
     return creds
 
+@app.post("/start-call")
+async def start_call(request: Request):
+    print("time ", request)
+    data = await request.json()
+    print(data)
+    
+    return {
+  "assistantId": "4a2778e6-6af4-450c-9f08-9cac96a89d15",
+  "assistantOverrides": {
+    "variableValues": {
+      "first_name": "John Doe"
+    }
+  },
+}
+
 
 @app.post("/current-time-date")
 async def get_current_time_datae(request: Request):
@@ -165,33 +180,74 @@ def book_slot(start_time, end_time, summary, description):
     event_result = service.events().insert(calendarId='primary', body=event).execute()
     print("Booked.", event_result)
 
+# Function to normalize keys
+def normalize_keys(data):
+
+    normalized_data = {}
+    for key, value in data.items():
+        normalized_key = key.strip().lower()
+
+        if 'name' in normalized_key:
+            normalized_key = 'name'
+        
+        elif 'email' in normalized_key:
+            normalized_key = 'email'
+        
+        elif 'start' in normalized_key or 'Start' in normalized_key:
+            normalized_key = 'start_date'
+        
+        elif 'end' in normalized_key or 'End' in normalized_key:
+            normalized_key = 'end_date'
+        
+        normalized_data[normalized_key] = value
+
+    if len(list(data.values())) == 3:
+        normalized_data['end_date'] = normalized_data["start_date"]
+
+    return normalized_data
+
+def parse_time(date):
+    # Desired date format
+    desired_date_format = "%d %B %Y, %I:%M%p"
+
+    # List of possible date formats received from the server
+    possible_formats = [
+        "%d %B %Y, %I:%M%p",
+        "%d %B %Y,%I:%M%p",  # Format without space after comma
+        "%d %B %Y, %I:%M%p", # Format with space after comma
+        "%d %B %Y, %I:%M %p" # Format with space before 'PM' or 'AM'
+    ]
+
+    for date_format in possible_formats:
+        try:
+            # Try parsing the date with each format
+            parsed_date =  datetime.datetime.strptime(date, date_format)
+            # Return the date in the desired format
+            return parsed_date
+        except ValueError:
+            # If the format doesn't match, try the next one
+            continue
+    # If none of the formats match, return the original string or handle the error
+    return "Error"
+
 @app.post("/book-apointment")
 async def book_apointment(request: Request):
     print("book-apointment ")
     data = await request.json() # Parse the incoming JSON data
 
-    print(data['message']['toolCalls'][0]['function']['arguments'])
-
-    output_dict = data['message']['toolCalls'][0]['function']['arguments']
-    values = list(output_dict.values())
+    output_dict = normalize_keys(data['message']['toolCalls'][0]['function']['arguments'])
+    print("output_dict ", output_dict)
 
     tz = pytz.timezone('Asia/Karachi')
 
     date_format = "%d %B %Y, %I:%M%p"
     
-    try:
-        start_datetime = datetime.datetime.strptime(values[3], date_format)
-        end_datetime = datetime.datetime.strptime(values[2], date_format)
-
-    except ValueError:
-        date_format = '%d %B %Y, %I:%M %p'
-        start_datetime = datetime.datetime.strptime(values[3], date_format)
-        end_datetime = datetime.datetime.strptime(values[2], date_format)
-
+    start_datetime = parse_time(output_dict['start_date'])
+    end_datetime = parse_time(output_dict['end_date'])
 
     start_datetime = tz.localize(start_datetime)
     end_datetime = tz.localize(end_datetime)    
-    book_slot(start_datetime, end_datetime, values[0], values[1])
+    book_slot(start_datetime, end_datetime, output_dict['name'], output_dict['email'])
 
 
     return  {

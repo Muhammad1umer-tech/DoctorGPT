@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         //await vapi.start(`e2eeb87f-661e-4dce-bd57-4068d8a90ca2-${personaId}`); // Replace with your actual Assistant ID
 
-        await vapi.start(`98d0d135-81cc-47ed-86f5-3e9cbb43e157`); // Replace with your actual Assistant ID
+        await vapi.start(`4a2778e6-6af4-450c-9f08-9cac96a89d15`); // Replace with your actual Assistant ID
 
         updateButtonState(false);
         isCalling = false;
@@ -206,8 +206,8 @@ function updateButtonState(isCallActive) {
 }
 
 function handleError(message) {
-  console.error(message);
-  updateCallStatus(message);
+  // console.error(message);
+  // fupdateCallStatus(message);
   stopOutgoingCallSound();
 }
 
